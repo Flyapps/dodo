@@ -46,5 +46,21 @@
 	</div>
 
 	<script src="Dodo.js"></script>
+
+    <script>
+        (function(w,d,o,u,pn,p,s,b){w[pn]=p;s=d.createElement('script');
+        s.async=1;s.src=p.baseUrl+u;b=d.getElementsByTagName(o)[0];b.parentNode.insertBefore(s,b);
+        })(window,document,'script','inappoffer.js','evmeParams',{
+            id:'ev.me.launcher',
+            baseUrl: (function(e){
+                e=((location.host.match(/(loc\.|test\.|stg\.)/)||[])[0]||'');
+                return e? '//static.' + e + 'flyapps.me/inappoffer/' : '//cdn0.flyapps.me/static/inappoffer/';
+            }()),
+            ga:'UA-16876190-35',
+            nthCallToShow: 2,
+            nthCallModifier: 1,
+            linkParams:'referrer=utm_source%3Dspil%26utm_medium%3Dsplash%26utm_campaign%3Ddd-c{{i}}'
+        });
+    </script>
 </body>
 </html>

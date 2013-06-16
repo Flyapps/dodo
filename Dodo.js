@@ -2372,20 +2372,32 @@ co.doubleduck.Menu.prototype = $extend(co.doubleduck.BaseMenu.prototype,{
 		if(this.onPlayClick != null) this.onPlayClick();
 	}
 	,handlePlayClick: function() {
-		if(this._menuMusic != null) this._menuMusic.stop();
-		createjs.Tween.removeTweens(this._menuTop);
-		createjs.Tween.get(this._menuTop).to({ alpha : 0},300);
-		createjs.Tween.removeTweens(this._buttonsLayer);
-		createjs.Tween.get(this._buttonsLayer).to({ alpha : 0},300);
-		if(this._helpUI != null) {
-			createjs.Tween.removeTweens(this._helpUI);
-			createjs.Tween.get(this._helpUI).to({ alpha : 0},300);
+	  var self = this;
+	  function actualPlay() {
+  		if(self._menuMusic != null) self._menuMusic.stop();
+  		createjs.Tween.removeTweens(self._menuTop);
+  		createjs.Tween.get(self._menuTop).to({ alpha : 0},300);
+  		createjs.Tween.removeTweens(self._buttonsLayer);
+  		createjs.Tween.get(self._buttonsLayer).to({ alpha : 0},300);
+  		if(self._helpUI != null) {
+  			createjs.Tween.removeTweens(self._helpUI);
+  			createjs.Tween.get(self._helpUI).to({ alpha : 0},300);
+  		}
+  		if(self._shopUI != null) {
+  			createjs.Tween.removeTweens(self._shopUI);
+  			createjs.Tween.get(self._shopUI).to({ alpha : 0},300);
+  		}
+  		createjs.Tween.get(self._overlay).wait(100).to({ alpha : 0},300).call($bind(self,self.switchToSession));
 		}
-		if(this._shopUI != null) {
-			createjs.Tween.removeTweens(this._shopUI);
-			createjs.Tween.get(this._shopUI).to({ alpha : 0},300);
-		}
-		createjs.Tween.get(this._overlay).wait(100).to({ alpha : 0},300).call($bind(this,this.switchToSession));
+
+
+    if (window.InAppOffer) {
+      new window.InAppOffer({
+        "onRemove": actualPlay
+      });
+    } else {
+      actualPlay();
+    }
 	}
 	,handleMuteToggle: function() {
 		co.doubleduck.SoundManager.toggleMute();
